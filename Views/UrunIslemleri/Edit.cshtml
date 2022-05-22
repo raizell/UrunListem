@@ -1,0 +1,80 @@
+@model UrunListem.Models.Urun
+
+@{
+    ViewData["Title"] = "Düzenle";
+}
+
+<h1>Düzenle</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Adi" class="control-label"></label>
+                <input asp-for="Adi" class="form-control" />
+                <span asp-validation-for="Adi" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Tur" class="control-label"></label>
+                <input asp-for="Tur" class="form-control" />
+                <span asp-validation-for="Tur" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Renk" class="control-label"></label>
+                <input asp-for="Renk" class="form-control" />
+                <span asp-validation-for="Renk" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Aciklama" class="control-label"></label>
+                <input asp-for="Aciklama" class="form-control" />
+                <span asp-validation-for="Aciklama" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Fiyat" class="control-label"></label>
+                <input asp-for="Fiyat" class="form-control" />
+                <span asp-validation-for="Fiyat" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Dosyalar" class="control-label" for="DosyaSec"></label>
+                <input asp-for="Dosyalar" class="form-control-file" type="file" id="DosyaSec" multiple/>
+                <span asp-validation-for="Dosyalar" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Kaydet" class="btn btn-primary" />
+            </div>
+        </form>
+        <div>
+            <div class="row ml-1">
+                @foreach (var item in Model.Resimler)
+                {
+                    <span>
+                        <img src="\resimler\@item.ResimAdi" style="height: 110px" class="img-thumbnail"><br>
+                        <a class="btn btn-danger bt-sm" asp-action="ResimSil" asp-route-id="@item.Id">Sil</a>
+                    </span>
+                }
+             </div>
+            <form asp-action="ResimEkle" enctype="multipart/form-data" class="mt-5">
+                <input type="hidden" asp-for="Id"/>
+                <div class="form-group">
+                    <input asp-for="Dosyalar" type="file" multiple class="form-control-file"/>
+                    <span asp-validation-for="Dosyalar" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Ekle" class="btn btn-primary"/>
+                </div>
+             </form>
+        </div>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Ürün Listesine Dön</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

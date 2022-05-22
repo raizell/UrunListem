@@ -1,0 +1,65 @@
+@model IEnumerable<UrunListem.Models.Urun>
+
+@{
+    ViewData["Title"] = "Ürün İşlemleri";
+}
+
+<h1>Ürün Kataloğu</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-success" ><i style="margin-right:5px"  class="fas fa-plus" ></i>Yeni Ürün Oluştur</a>
+</p>
+<table class="table">
+    <thead class="jumbotron jumbotron-fluid">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Resimler)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Adi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tur)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Renk)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Aciklama)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Fiyat)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                <img src="\Resimler\@item.Resimler.FirstOrDefault().ResimAdi" style="max-height: 55px;"/>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Adi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tur)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Renk)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Aciklama)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fiyat)
+            </td>
+            <td>
+                <a class="btn btn-outline-primary btn-sm" asp-action="Edit" asp-route-id="@item.Id "><i style="margin-right:5px" class="far fa-edit"></i>Düzenle</a> |
+                <a class="btn btn-outline-dark btn-sm" asp-action="Details" asp-route-id="@item.Id"><i style="margin-right:5px" class="fas fa-info-circle"></i>Detaylar</a> |
+                <a class="btn btn-outline-danger btn-sm" asp-action="Delete" asp-route-id="@item.Id"><i style="margin-right:5px" class="far fa-trash-alt"></i>Sil</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
